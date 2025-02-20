@@ -1,0 +1,137 @@
+Aim: Create a program to collect and store all the cards to assist the users in finding  all the cards in a  given symbol using collectionn interface.
+
+Code: import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class Card {
+    private String rank;
+    private String suit;
+
+    public Card(String rank, String suit) {
+        this.rank = rank;
+        this.suit = suit;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public String getSuit() {
+        return suit;
+    }
+
+    @Override
+    public String toString() {
+        return rank + " of " + suit;
+    }
+}
+
+class CardCollection {
+    private List<Card> cards;
+
+    public CardCollection() {
+        cards = new ArrayList<>();
+    }
+
+    // Add a card to the collection
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
+    // Find all cards with a given suit
+    public List<Card> findCardsBySuit(String suit) {
+        List<Card> result = new ArrayList<>();
+        for (Card card : cards) {
+            if (card.getSuit().equalsIgnoreCase(suit)) {
+                result.add(card);
+            }
+        }
+        return result;
+    }
+
+    // Display all cards in the collection
+    public void displayAllCards() {
+        if (cards.isEmpty()) {
+            System.out.println("No cards in the collection.");
+        } else {
+            for (Card card : cards) {
+                System.out.println(card);
+            }
+        }
+    }
+}
+
+public class CardCollectionApp {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        CardCollection cardCollection = new CardCollection();
+
+        while (true) {
+            System.out.println("\nCard Collection Management");
+            System.out.println("1. Add Card");
+            System.out.println("2. Find Cards by Suit");
+            System.out.println("3. Display All Cards");
+            System.out.println("4. Exit");
+
+            System.out.print("Enter your choice: ");
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1":
+                    System.out.print("Enter rank of card (e.g., Ace, 2, 3, ...): ");
+                    String rank = scanner.nextLine();
+                    System.out.print("Enter suit of card (e.g., Hearts, Spades, Diamonds, Clubs): ");
+                    String suit = scanner.nextLine();
+                    Card card = new Card(rank, suit);
+                    cardCollection.addCard(card);
+                    System.out.println("Card added successfully.");
+                    break;
+
+                case "2":
+                    System.out.print("Enter the suit to search (e.g., Hearts, Spades, Diamonds, Clubs): ");
+                    String searchSuit = scanner.nextLine();
+                    List<Card> cardsBySuit = cardCollection.findCardsBySuit(searchSuit);
+                    if (cardsBySuit.isEmpty()) {
+                        System.out.println("No cards found with the suit " + searchSuit);
+                    } else {
+                        System.out.println("Cards with the suit " + searchSuit + ":");
+                        for (Card c : cardsBySuit) {
+                            System.out.println(c);
+                        }
+                    }
+                    break;
+
+                case "3":
+                    System.out.println("All cards in the collection:");
+                    cardCollection.displayAllCards();
+                    break;
+
+                case "4":
+                    System.out.println("Exiting the system.");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        }
+    }
+}
+Output :
+Card Collection Management
+1. Add Card
+2. Find Cards by Suit
+3. Display All Cards
+4. Exit
+Enter your choice: 1
+Enter rank of card (e.g., Ace, 2, 3, ...): 2
+Enter suit of card (e.g., Hearts, Spades, Diamonds, Clubs): heart
+Card added successfully.
+
+Card Collection Management
+1. Add Card
+2. Find Cards by Suit
+3. Display All Cards
+4. Exit
